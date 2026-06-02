@@ -4,6 +4,7 @@ package project.index;
 
 // import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,9 +13,9 @@ import project.model.DeviceType;
 import project.model.User;
 
 public class AudienceIndex {
-    private final HashSet<Long> premiumUsers;
-    private final HashMap<String, HashSet<Long>> cityIndex;
-    private final HashMap<DeviceType, HashSet<Long>> deviceIndex;
+    private final Set<Long> premiumUsers;
+    private final Map<String, HashSet<Long>> cityIndex;
+    private final Map<DeviceType, HashSet<Long>> deviceIndex;
 
     public AudienceIndex(){
         premiumUsers = new HashSet<>();
