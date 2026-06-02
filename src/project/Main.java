@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 // import java.util.Set;
 
+import project.discovery.SortedAudienceDiscovery;
 // import project.analytics.AudienceAnalytics;
 import project.generator.UserGenerator;
 import project.index.AudienceIndex;
@@ -23,6 +24,7 @@ public class Main {
         UserGenerator generator = new UserGenerator();
         AudienceIndex index = new AudienceIndex();
         // AudienceAnalytics analytics = new AudienceAnalytics();
+        SortedAudienceDiscovery discovery = new SortedAudienceDiscovery();
 
         long start = System.nanoTime();
         int userCount = 100_000;
@@ -30,11 +32,19 @@ public class Main {
             User user = generator.generateUser(i);
             index.addUser(user);
             // analytics.recordUser(user);
+            discovery.recordUser(user);
         }
         long end = System.nanoTime();
 
         double buildTime = (end - start) / 1_000_000.00;
         System.out.println("Single Thread - Time taken to generate users, build indexes and record analytics: "+buildTime);
+
+        System.out.println("First user: "+discovery.getFirstUserId());
+        System.out.println("Last user: "+discovery.getLastUserId());
+        System.out.println("Users 50000 to 50010: "+discovery.getUsersInRange(50000,50010));
+        System.out.println("First 10 users: "+discovery.getFirstNUsers(10));
+
+
     } 
 
     public static void runMultiThreadBenchmark() throws InterruptedException{
