@@ -16,8 +16,8 @@ public class AudienceIndex {
 
     private final Map<Long, User> userStore;
     private final Set<Long> premiumUsers;
-    private final Map<String, HashSet<Long>> cityIndex;
-    private final Map<DeviceType, HashSet<Long>> deviceIndex;
+    private final Map<String, Set<Long>> cityIndex;
+    private final Map<DeviceType, Set<Long>> deviceIndex;
 
     public AudienceIndex(){
         userStore = new HashMap<>();
@@ -59,13 +59,13 @@ public class AudienceIndex {
     }
     
     public Set<Long> getPremiumAndroidUsers(){
-        Set<Long> premiumAndroidUsers = new HashSet<>(deviceIndex.get(DeviceType.ANDROID));
+        Set<Long> premiumAndroidUsers = new HashSet<>(getSafeSet(deviceIndex.get(DeviceType.ANDROID)));
         premiumAndroidUsers.retainAll(getSafeSet(premiumUsers));
         return getSafeSet(premiumAndroidUsers);
     }
 
     public Set<Long> getPremiumUsersByCity(String city){
-        Set<Long> premiumByCity = new HashSet<>(cityIndex.get(city));
+        Set<Long> premiumByCity = new HashSet<>(getSafeSet(cityIndex.get(city)));
         premiumByCity.retainAll(getSafeSet(premiumUsers));
         return premiumByCity;
     }
@@ -77,7 +77,7 @@ public class AudienceIndex {
     }
 
     public Set<Long> getPremiumUsersByCityAndDevice(String city, DeviceType deviceType){
-        Set<Long> users = new HashSet<>(cityIndex.get(city));
+        Set<Long> users = new HashSet<>(getSafeSet(cityIndex.get(city)));
         users.retainAll(getSafeSet(deviceIndex.get(deviceType)));
         users.retainAll(getSafeSet(premiumUsers));
         return users;
