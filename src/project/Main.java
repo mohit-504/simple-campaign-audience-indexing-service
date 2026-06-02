@@ -28,12 +28,24 @@ public class Main {
     }
 
     //getting all premium users
-    System.out.println("All premium users: "+index.getAllPremiumUsers());
+    System.out.println("All premium users: "+index.getPremiumUsers());
 
     //getting all users in city New York 
     System.out.println("All users in New York: "+index.getUsersByCity("New York"));
 
     //getting all users using Androids 
     System.out.println("All users using Android: "+index.getUsersByDeviceType(DeviceType.ANDROID));
+
+    //getting all Premium users using Androids 
+    System.out.println("All Premium users using Android: "+index.getPremiumAndroidUsers());
+
+    //getting Premium users in city Los Angeles 
+    System.out.println("All Premium users in Los Angeles: "+index.getPremiumUsersByCity("Los Angeles"));
+
+    //getting all users in city Seattle using Linux 
+    System.out.println("All Premium users using Android: "+index.getUsersByCityAndDevice("Seattle", DeviceType.LINUX));
+
+    //getting all Premium users in city New York using IOS  
+    System.out.println("All Premium users using Android: "+index.getPremiumUsersByCityAndDevice("New York", DeviceType.IOS));
     }
 }
