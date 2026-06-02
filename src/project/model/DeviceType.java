@@ -1,3 +1,5 @@
+//DeviceType.java
+
 package project.model;
 
 public enum DeviceType {
