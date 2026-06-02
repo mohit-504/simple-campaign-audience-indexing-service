@@ -43,9 +43,9 @@ public class Main {
     System.out.println("All Premium users in Los Angeles: "+index.getPremiumUsersByCity("Los Angeles"));
 
     //getting all users in city Seattle using Linux 
-    System.out.println("All Premium users using Android: "+index.getUsersByCityAndDevice("Seattle", DeviceType.LINUX));
+    System.out.println("All users in city Seattle using Linux: "+index.getUsersByCityAndDevice("Seattle", DeviceType.LINUX));
 
     //getting all Premium users in city New York using IOS  
-    System.out.println("All Premium users using Android: "+index.getPremiumUsersByCityAndDevice("New York", DeviceType.IOS));
+    System.out.println("All Premium users in city New York using IOS: "+index.getPremiumUsersByCityAndDevice("New York", DeviceType.IOS));
     }
 }

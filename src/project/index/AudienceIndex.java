@@ -59,14 +59,14 @@ public class AudienceIndex {
     }
     
     public Set<Long> getPremiumAndroidUsers(){
-        Set<Long> premiumAndroidUsers = new HashSet<>(premiumUsers);
-        premiumAndroidUsers.retainAll(getSafeSet(deviceIndex.get(DeviceType.ANDROID)));
+        Set<Long> premiumAndroidUsers = new HashSet<>(deviceIndex.get(DeviceType.ANDROID));
+        premiumAndroidUsers.retainAll(getSafeSet(premiumUsers));
         return getSafeSet(premiumAndroidUsers);
     }
 
     public Set<Long> getPremiumUsersByCity(String city){
-        Set<Long> premiumByCity = new HashSet<>(premiumUsers);
-        premiumByCity.retainAll(getSafeSet(cityIndex.get(city)));
+        Set<Long> premiumByCity = new HashSet<>(cityIndex.get(city));
+        premiumByCity.retainAll(getSafeSet(premiumUsers));
         return premiumByCity;
     }
 
@@ -77,9 +77,9 @@ public class AudienceIndex {
     }
 
     public Set<Long> getPremiumUsersByCityAndDevice(String city, DeviceType deviceType){
-        Set<Long> users = new HashSet<>(premiumUsers);
+        Set<Long> users = new HashSet<>(cityIndex.get(city));
         users.retainAll(getSafeSet(deviceIndex.get(deviceType)));
-        users.retainAll(cityIndex.get(city));
+        users.retainAll(getSafeSet(premiumUsers));
         return users;
     }
     
