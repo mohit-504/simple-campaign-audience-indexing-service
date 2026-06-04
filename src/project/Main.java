@@ -4,6 +4,7 @@ package project;
 import java.util.ArrayList;
 import java.util.List;
 // import java.util.Set;
+import java.util.Set;
 
 import project.discovery.SortedAudienceDiscovery;
 // import project.analytics.AudienceAnalytics;
@@ -11,13 +12,35 @@ import project.generator.UserGenerator;
 import project.index.AudienceIndex;
 import project.index.ConcurrentAudienceIndex;
 // import project.model.DeviceType;
-
+import project.model.DeviceType;
 import project.model.User;
+import project.query.AudienceQueryService;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException{
-        runSingleThreadBenchmark();
-        runMultiThreadBenchmark();
+        // runSingleThreadBenchmark();
+        // runMultiThreadBenchmark();
+        queryTesting();
+    }
+
+    public static void queryTesting(){
+        UserGenerator generator = new UserGenerator();
+        AudienceIndex index = new AudienceIndex();
+        AudienceQueryService queryService = new AudienceQueryService(index);
+
+        int userCount = 100_000;
+        for(int i=1;i<=userCount;i++){
+            User user = generator.generateUser(i);
+            index.addUser(user);
+            // analytics.recordUser(user);
+            // discovery.recordUser(user);
+        }
+
+        Set<Long> users = queryService.execute("premium AND city=Mumbai");
+        String query = queryService.buildQuery(true, "Mumbai", DeviceType.ANDROID);
+
+        System.out.println(query);
+        System.out.println(users.size());
     }
 
     public static void runSingleThreadBenchmark(){
